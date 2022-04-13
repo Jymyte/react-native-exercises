@@ -18,6 +18,7 @@
     "react-devtools-core": "^4.14.0",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-radio-buttons-group": "^2.2.10",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {

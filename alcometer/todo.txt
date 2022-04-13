@@ -1,0 +1,4 @@
+Warning with alert if weight is not typed in: 2 p.
+Styling 3p
+Styling in separate folder 1p
+Showing result using a colour (green, yellow, red) depending on the result: 3 p.
