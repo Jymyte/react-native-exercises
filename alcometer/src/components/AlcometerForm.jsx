@@ -2,6 +2,7 @@ import { Text, Button, TextInput, StyleSheet, ScrollView, SafeAreaView } from 'r
 import React, { Component, useState } from 'react'
 import {Picker} from '@react-native-picker/picker'
 import RadioGroup from 'react-native-radio-buttons-group';
+import theme from '..Theme';
 
 const radioButtonsData = [{
   id: '1',
@@ -15,29 +16,36 @@ const radioButtonsData = [{
 
 export default AlcometerForm = () => {
   const [weight, setWeight] = useState("0");
-  const [time, setTime] = useState();
+  const [time, setTime] = useState(1);
   const [gender, setGender] = useState("male");
-  const [cans, setCans] = useState();
+  const [cans, setCans] = useState(1);
   const [result, setResult] = useState(0);
   const [radioButtons, setRadioButtons] = useState(radioButtonsData)
+  const [showError, setShowError] = useState(false);
   
   const HandleSubmit = () => {
-    let litres = 0.33 * cans
-    let grams = litres * 8 * 4.5
-    let burning = weight / 10
-    let gramsLeft = grams - (burning * time)
-    let result;
-    
-    if (gender === "male") {
-      result = gramsLeft / (weight * 0.7)
+    if(weight <= 0) {
+      setShowError(true);
     } else {
-      result = gramsLeft / (weight * 0.6)
-    }
+      setShowError(false);
 
-    if (result >= 0) {
-      setResult(result)
-    } else {
-      setResult(0)
+      let litres = 0.33 * cans
+      let grams = litres * 8 * 4.5
+      let burning = weight / 10
+      let gramsLeft = grams - (burning * time)
+      let result;
+      
+      if (gender === "male") {
+        result = gramsLeft / (weight * 0.7)
+      } else {
+        result = gramsLeft / (weight * 0.6)
+      }
+  
+      if (result >= 0) {
+        setResult(result)
+      } else {
+        setResult(0)
+      }
     }
   }
 
@@ -56,18 +64,19 @@ export default AlcometerForm = () => {
         <ScrollView style={styles.scrollView}>
           <Text>AlcometerForm</Text>
           <Text>Weight</Text>
-          <TextInput style={styles.field} onChangeText={text => setWeight(text)} keyboardType='decimal-pad'/>
+          <TextInput style={styles.inputField} onChangeText={text => setWeight(text)} keyboardType='decimal-pad'/>
+          {showError ? <Text style={styles.errorMessage}>Weight is required</Text> : null}
           <Text style ={styles.field}>Cans</Text>
-          <Picker selectedValue={cans} onValueChange={(itemValue, itemIndex) => setCans(itemValue)}>
+          <Picker style={styles.inputField} selectedValue={cans} onValueChange={(itemValue, itemIndex) => setCans(itemValue)}>
             {amounts}
           </Picker>
           <Text style ={styles.field}>Time in hours</Text>
           {/* <TextInput style={styles.field} onChangeText={text => setTime(text)} keyboardType='decimal-pad'/> */}
-          <Picker selectedValue={time} onValueChange={(itemValue, itemIndex) => setTime(itemValue)}>
+          <Picker style={styles.inputField} selectedValue={time} onValueChange={(itemValue, itemIndex) => setTime(itemValue)}>
             {amounts}
           </Picker>
           <Text style={styles.field}>Gender</Text>
-          <RadioGroup radioButtons={radioButtons} onPress={onPressRadioButton}/>
+          <RadioGroup style={styles.inputField} radioButtons={radioButtons} onPress={onPressRadioButton}/>
           <Text style={styles.field}>{result.toFixed(2)}</Text>
           <Button onPress={HandleSubmit} title="Calculate" />
         </ScrollView>
@@ -79,6 +88,10 @@ const styles = StyleSheet.create({
   container: {
     marginTop:50,
     marginLeft:10,
+    flex: 1,
+    flexDirection: "column",
+    backgroundColor: "blue",
+    height: '100%' 
   },
   field: {
     marginBottom:10,
@@ -87,4 +100,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#D3D3D3",
     marginHorizontal: 20,
   },
+  errorMessage: {
+    fontWeight: "bold",
+    color: "red",
+  },
+  inputField: {
+    borderWidth: 1,
+    borderRadius: 5,
+    backgroundColor: "white",
+    borderColor: "black",
+  }
 })
