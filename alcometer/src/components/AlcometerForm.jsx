@@ -2,7 +2,7 @@ import { Text, Button, TextInput, StyleSheet, ScrollView, SafeAreaView } from 'r
 import React, { Component, useState } from 'react'
 import {Picker} from '@react-native-picker/picker'
 import RadioGroup from 'react-native-radio-buttons-group';
-import theme from '..Theme';
+import theme from '../Theme';
 
 const radioButtonsData = [{
   id: '1',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     marginLeft:10,
     flex: 1,
     flexDirection: "column",
-    backgroundColor: "blue",
+    backgroundColor: "#D3D3D3",
     height: '100%' 
   },
   field: {
