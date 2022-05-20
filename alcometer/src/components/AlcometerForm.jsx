@@ -2,7 +2,7 @@ import { Text, Button, TextInput, StyleSheet, ScrollView, SafeAreaView } from 'r
 import React, { Component, useState } from 'react'
 import {Picker} from '@react-native-picker/picker'
 import RadioGroup from 'react-native-radio-buttons-group';
-import theme from '../Theme';
+//import theme from '../Theme';
 
 const radioButtonsData = [{
   id: '1',
