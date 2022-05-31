@@ -1,0 +1,48 @@
+Lisää muuttujat
+  - selectedScores
+  - scores
+  - totalScore
+  - pointsTillBonus
+  - bonusLimit
+
+Ohjeet
+  - "Select your points"
+
+errorit
+  - "You have to throw dices first" -> countScore
+  - "You have already selected points for 4" -> countScore
+  - "Select your points from below before next round" -> throwDices
+
+Funktiot
+  - countScore(i, j) -> selecScore()
+    - executes at the end of each round when player selects points
+    - ThrowsLeft < 0?
+    - check if already selected
+    - multiplies the i-dice score by count and adds that to totalScore
+    - updates selectedScores
+  - checkBonus()
+    - update pointsTillBonus
+    - add bonus to totalScore if the BonusLimit is reached
+  - checkGameOver() follows countScore
+    - if every selecScore is true then
+      - 'Game over'
+      - Swap 'Throw dices' button with 'New Game' button to start a new game.
+    - else continue to initNextRound()
+  - initNextRound()
+    - ThrowsLeft = 3
+    - Disable selecting old dices
+    - Re-init selectedDices
+  - newGame()
+    - reload application basically.
+
+UI-elementit
+  - Row(s) for scores
+    - select score buttons
+      - color based on selected or not
+    - dice scores (maybe a row of it's own?)
+  - totalScore count
+
+
+Njaas
+Testaa nää funktiot countScore(i, j) -> selecScore(i, sum)
+Käytä console.logeja ja tee UI-rowit scoreille ja selectScore pressableille.
