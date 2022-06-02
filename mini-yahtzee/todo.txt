@@ -44,5 +44,6 @@ UI-elementit
 
 
 Njaas
-Testaa nää funktiot countScore(i, j) -> selecScore(i, sum)
+Testaa nää funktiot countScore(i, j) -> selectScore(i, sum)
 Käytä console.logeja ja tee UI-rowit scoreille ja selectScore pressableille.
+score tekstit tarvii oman stylen, että välit saadaan kohillee.
