@@ -3,12 +3,12 @@ import {Text, View, Pressable} from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import styles from '../style/style';
 
-function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES, NBR_OF_DICES, setSelectedScores, selectedDices, getColor, nbrOfThrowsLeft, setStatus, setTotalScore, totalScore, setScores}) {
+function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES, NBR_OF_DICES, setSelectedScores, selectedDices, getColor, nbrOfThrowsLeft, setStatus, setTotalScore, totalScore, setScores, setSelectedDices}) {
 
   const selectScore = (number, score) => {
     console.log(score);
     let selected = [...selectedScores];
-    selected[number] = true;
+    selected[number - 1] = true;
     setSelectedScores(selected);
 
     let scoresTemp = [...scores];
@@ -19,24 +19,29 @@ function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES, NBR_OF_DICES, se
   //How do I reduce?????
 
   const countScore = (diceNumber) => {
-    console.log(diceNumber, "dice number");
-    console.log(typeof(parseInt(board[1].match(/\d+/)[0])), "vittuuh", parseInt(board[1].match(/\d+/)[0]));
+    const currentDiceScores = board.map((i) => {
+      return parseInt(i.match(/\d+/)[0])
+    })
+
     if (nbrOfThrowsLeft > 0) {
       setStatus('Keep on throwing');
     } else {
-      const sum = board.reduce((previousSum, i) => {
-        if (parseInt(i.match(/\d+/)[0]) === diceNumber) {
-          console.log(parseInt(i.match(/\d+/)[0]), "reducsessa");
-          return previousSum + parseInt(i.match(/\d+/)[0]);
-        }
-      })
+      const sum = currentDiceScores.reduce((previousSum, i) => {
+        if (i === diceNumber) {
+          console.log(i, "reducsessa");
+          return previousSum + i;
+        } else return 0;
+      },0)
 
       console.log(sum, "tää on se summa");
 
+      //Nää vois siirtää Gameboardiin jonain initNewRound funktiona.
+      //Also pitää tehä sillee, että kun pelaaja vuoron lopussa valitsee pisteen, ei hän voi enempää pisteitä valita.
       setTotalScore(totalScore + sum);
       setStatus('Throw to start the next round');
-      setSelectedScores(new Array(NBR_OF_DICES).fill(false));
+      setSelectedDices(new Array(NBR_OF_DICES).fill(false));
       selectScore(diceNumber, sum);
+      board = [];
     }
   }
 

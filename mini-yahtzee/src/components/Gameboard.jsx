@@ -59,7 +59,7 @@ function Gameboard() {
       <Pressable style={styles.button} onPress={() => throwDices()}>
         <Text style={styles.buttonText}>Throw dices</Text>
       </Pressable>
-      <ScoreRow board={board} selectedScores={selectedScores} scores={scores} NBR_OF_SIDES={NBR_OF_SIDES} NBR_OF_DICES={NBR_OF_DICES} setSelectedScores={setSelectedScores} selectedDices={selectedDices} getColor={getColor} nbrOfThrowsLeft={nbrOfThrowsLeft} setStatus={setStatus} setTotalScore={setTotalScore} totalScore={totalScore} setScores={setScores}/>
+      <ScoreRow board={board} selectedScores={selectedScores} scores={scores} NBR_OF_SIDES={NBR_OF_SIDES} NBR_OF_DICES={NBR_OF_DICES} setSelectedScores={setSelectedScores} selectedDices={selectedDices} getColor={getColor} nbrOfThrowsLeft={nbrOfThrowsLeft} setStatus={setStatus} setTotalScore={setTotalScore} totalScore={totalScore} setScores={setScores} setSelectedDices={setSelectedDices}/>
     </View>
   )
 }
