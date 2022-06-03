@@ -4,7 +4,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import styles from '../style/style';
 import style from '../style/style';
 
-function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES,
+function ScoreRow({checkGameEnd, board, selectedScores, scores, NBR_OF_SIDES,
     NBR_OF_DICES, setSelectedScores, selectedDices, getColor,
     nbrOfThrowsLeft, setStatus, setTotalScore, totalScore,
     setScores, setSelectedDices, roundOver, setRoundOver}) {
@@ -24,7 +24,9 @@ function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES,
     // If round is over skip over this function. Round is over once player has chosen a score succesfully.
     if (!roundOver) {
       if (nbrOfThrowsLeft > 0) {
-        setStatus('Keep on throwing');
+        setStatus('Throw 3 times before setting points');
+      } else if (selectedScores[diceNumber-1]){
+        setStatus("You have already selected that score")
       } else {
         setRoundOver(true);
   
@@ -48,6 +50,7 @@ function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES,
         setStatus('Throw to start the next round');
         setSelectedDices(new Array(NBR_OF_DICES).fill(false));
         selectScore(diceNumber, sum);
+        checkGameEnd();
       }
     } else {
       console.log("Skipped");

@@ -7,7 +7,7 @@ import ScoreRow from "./ScoreRow";
 let board = [];
 const NBR_OF_DICES = 5;
 const NBR_OF_SIDES = 6;
-const NBR_OF_THROWS = 5;
+const NBR_OF_THROWS = 3;
 const BONUS_SCORE_TRESHOLD = 63;
 const BONUS_SCORE = 10;
 
@@ -16,30 +16,41 @@ function Gameboard() {
   const [status, setStatus] = useState('');
   const [selectedDices, setSelectedDices] = useState(new Array(NBR_OF_DICES).fill(false));
   const [scores, setScores] = useState(new Array(NBR_OF_SIDES).fill(0))
-  const [selectedScores, setSelectedScores] = useState(new Array(NBR_OF_DICES).fill(false))
+  const [selectedScores, setSelectedScores] = useState(new Array(NBR_OF_SIDES).fill(false))
   const [totalScore, setTotalScore] = useState(0);
   const [roundOver, setRoundOver] = useState(false);
+  const [gameEnded, setGameEnded] = useState(false);
+  const [bonusText, setBonusText] = useState("Get 63 points for bonus");
+  
   useEffect(() => {
     checkRoundEnd();
     if(nbrOfThrowsLeft === NBR_OF_THROWS) {
-      setStatus('Game has not started');
+      setStatus('Start the round by throwing dices');
       setRoundOver(false);
     if (nbrOfThrowsLeft === 0) {
       setStatus('Select a score from below.')
     }
     }
   }, [nbrOfThrowsLeft]);
+
+  useEffect(() => {
+    checkGameEnd();
+  }, [selectedScores])
+  
   
   const throwDices = () => {
-    for (let i = 0; i < NBR_OF_DICES; i++) {
-      if (!selectedDices[i]) {
-        let randomNumber = Math.floor(Math.random() * 6 + 1);
-        board[i] = 'dice-' + randomNumber;
+    if (nbrOfThrowsLeft > 0) {
+      for (let i = 0; i < NBR_OF_DICES; i++) {
+        if (!selectedDices[i]) {
+          let randomNumber = Math.floor(Math.random() * 6 + 1);
+          board[i] = 'dice-' + randomNumber;
+        }
       }
+
+      setNbrOfThrowsLeft(nbrOfThrowsLeft-1)
+    } else if (roundOver) {
+      setNbrOfThrowsLeft(NBR_OF_THROWS)
     }
-    if (nbrOfThrowsLeft > 0)
-    setNbrOfThrowsLeft(nbrOfThrowsLeft-1)
-    else setNbrOfThrowsLeft(NBR_OF_THROWS)
   }
 
   const getColor = (i, j) => {
@@ -47,11 +58,24 @@ function Gameboard() {
   }
   
   const checkRoundEnd = () => {
-    if (board.every((val, i, arr) => val === arr[0]) && nbrOfThrowsLeft > 0) {
+    if (nbrOfThrowsLeft <= 0) {
       setStatus('Select your points');
-      setSelectedDices(new Array(NBR_OF_DICES).fill(false));
     } else {
-      setStatus('Keep on throwing');
+      setStatus('Select dices and throw again');
+    }
+  }
+
+  const checkGameEnd = () => {
+    if (selectedScores.every(val => val === true)) {
+      setStatus('Game over! All points selected');
+      setGameEnded(true);
+    }
+  }
+
+  const checkBonus = () => {
+    if (total > BONUS_SCORE_TRESHOLD) {
+      setTotalScore(totalScore + BONUS_SCORE);
+      
     }
   }
 
@@ -66,7 +90,8 @@ function Gameboard() {
         <Text style={styles.buttonText}>Throw dices</Text>
       </Pressable>
       <Text style={styles.gameinfo}>Total score: {totalScore}</Text>
-      <ScoreRow board={board} selectedScores={selectedScores} scores={scores} NBR_OF_SIDES={NBR_OF_SIDES} NBR_OF_DICES={NBR_OF_DICES} setSelectedScores={setSelectedScores} selectedDices={selectedDices} getColor={getColor} nbrOfThrowsLeft={nbrOfThrowsLeft} setStatus={setStatus} setTotalScore={setTotalScore} totalScore={totalScore} setScores={setScores} setSelectedDices={setSelectedDices} roundOver={roundOver} setRoundOver={setRoundOver} />
+      <Text style={styles.gameinfo}>{bonusText}</Text>
+      <ScoreRow checkGameEnd={checkGameEnd} board={board} selectedScores={selectedScores} scores={scores} NBR_OF_SIDES={NBR_OF_SIDES} NBR_OF_DICES={NBR_OF_DICES} setSelectedScores={setSelectedScores} selectedDices={selectedDices} getColor={getColor} nbrOfThrowsLeft={nbrOfThrowsLeft} setStatus={setStatus} setTotalScore={setTotalScore} totalScore={totalScore} setScores={setScores} setSelectedDices={setSelectedDices} roundOver={roundOver} setRoundOver={setRoundOver} />
     </View>
   )
 }

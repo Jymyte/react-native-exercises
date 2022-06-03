@@ -45,5 +45,7 @@ UI-elementit
 
 
 score tekstit tarvii oman stylen, että välit saadaan kohillee.
-estä pelaajaa valitsemasta jo valittu score
 miksi board ei ole state?
+Kun kaikki scoret on valittu, voi uuden pelin aloittaa throwia painamalla.
+If(gameEnded) näytä play again nappi, joka toteuttaa newGame().
+pelaaja voi valita vielä aikasemman vuoron noppia
