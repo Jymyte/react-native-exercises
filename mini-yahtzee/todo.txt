@@ -43,7 +43,7 @@ UI-elementit
   - totalScore count
 
 
-Njaas
-Testaa nää funktiot countScore(i, j) -> selectScore(i, sum)
-Käytä console.logeja ja tee UI-rowit scoreille ja selectScore pressableille.
+
 score tekstit tarvii oman stylen, että välit saadaan kohillee.
+estä pelaajaa valitsemasta jo valittu score
+miksi board ei ole state?

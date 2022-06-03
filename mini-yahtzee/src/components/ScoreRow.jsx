@@ -2,8 +2,12 @@ import React, {useState, useEffect, useCallback} from 'react';
 import {Text, View, Pressable} from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import styles from '../style/style';
+import style from '../style/style';
 
-function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES, NBR_OF_DICES, setSelectedScores, selectedDices, getColor, nbrOfThrowsLeft, setStatus, setTotalScore, totalScore, setScores, setSelectedDices}) {
+function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES,
+    NBR_OF_DICES, setSelectedScores, selectedDices, getColor,
+    nbrOfThrowsLeft, setStatus, setTotalScore, totalScore,
+    setScores, setSelectedDices, roundOver, setRoundOver}) {
 
   const selectScore = (number, score) => {
     console.log(score);
@@ -16,32 +20,37 @@ function ScoreRow({board, selectedScores, scores, NBR_OF_SIDES, NBR_OF_DICES, se
     setScores(scoresTemp);
   }
 
-  //How do I reduce?????
-
   const countScore = (diceNumber) => {
-    const currentDiceScores = board.map((i) => {
-      return parseInt(i.match(/\d+/)[0])
-    })
-
-    if (nbrOfThrowsLeft > 0) {
-      setStatus('Keep on throwing');
+    // If round is over skip over this function. Round is over once player has chosen a score succesfully.
+    if (!roundOver) {
+      if (nbrOfThrowsLeft > 0) {
+        setStatus('Keep on throwing');
+      } else {
+        setRoundOver(true);
+  
+        console.log("roundOver", roundOver);
+        
+        let currentDiceScores = board.map((i) => {
+          return parseInt(i.match(/\d+/)[0])
+        })
+        
+        const sum = currentDiceScores.reduce((previousSum, i) => {
+          if (i === diceNumber) {
+            console.log(i, "reducessa");
+            return previousSum + i;
+          } else return previousSum;
+        },0)
+  
+        console.log(sum, "tää on se summa");
+        
+        //initializing next round
+        setTotalScore(totalScore + sum);
+        setStatus('Throw to start the next round');
+        setSelectedDices(new Array(NBR_OF_DICES).fill(false));
+        selectScore(diceNumber, sum);
+      }
     } else {
-      const sum = currentDiceScores.reduce((previousSum, i) => {
-        if (i === diceNumber) {
-          console.log(i, "reducsessa");
-          return previousSum + i;
-        } else return 0;
-      },0)
-
-      console.log(sum, "tää on se summa");
-
-      //Nää vois siirtää Gameboardiin jonain initNewRound funktiona.
-      //Also pitää tehä sillee, että kun pelaaja vuoron lopussa valitsee pisteen, ei hän voi enempää pisteitä valita.
-      setTotalScore(totalScore + sum);
-      setStatus('Throw to start the next round');
-      setSelectedDices(new Array(NBR_OF_DICES).fill(false));
-      selectScore(diceNumber, sum);
-      board = [];
+      console.log("Skipped");
     }
   }
 
