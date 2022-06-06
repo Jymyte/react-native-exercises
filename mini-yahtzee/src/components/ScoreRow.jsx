@@ -60,9 +60,9 @@ function ScoreRow({checkGameEnd, board, selectedScores, scores, NBR_OF_SIDES,
   const scoreRow = [];
   for (let i = 0; i < NBR_OF_SIDES; i++) {
     scoreRow.push(
-      <Text key={"score" + i}>
-        {scores[i]}
-      </Text>
+        <Text style={styles.scoreText} key={"score" + i}>
+          {scores[i]}
+        </Text>
     )
   }
 
@@ -83,10 +83,10 @@ function ScoreRow({checkGameEnd, board, selectedScores, scores, NBR_OF_SIDES,
 
   return (
     <View>
-      <View style={styles.flex}>
+      <View style={styles.scoreRow}>
       {scoreRow}
       </View>
-      <View style={styles.flex}>
+      <View style={styles.selectScoreRow}>
       {selectScoreRow}
       </View>
     </View>

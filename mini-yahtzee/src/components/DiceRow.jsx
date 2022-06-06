@@ -3,12 +3,15 @@ import {Text, View, Pressable} from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import styles from '../style/style';
 
-function DiceRow({board, NBR_OF_DICES, selectedDices, setSelectedDices, getColor}) {
+function DiceRow({board, NBR_OF_DICES, selectedDices, setSelectedDices, getColor, gameEnded, roundOver}) {
 
   const selectDice = (number) => {
-    let dices = [...selectedDices];
-    dices[number] = selectedDices[number] ? false : true;
-    setSelectedDices(dices);
+    console.log("game ended and round over: ", gameEnded, roundOver)
+    if (!gameEnded && !roundOver) {
+      let dices = [...selectedDices];
+      dices[number] = selectedDices[number] ? false : true;
+      setSelectedDices(dices);
+    }
   }
 
   const diceRow = [];

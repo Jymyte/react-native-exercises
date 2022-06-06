@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import ScoreRow from '../components/ScoreRow';
 
 export default StyleSheet.create({
   container: {
@@ -64,5 +65,24 @@ export default StyleSheet.create({
   buttonText: {
     color:"#2B2B52",
     fontSize: 20
+  },
+  scoreRow: {
+    paddingTop: 20,
+    flexDirection: "row",
+    //alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  selectScoreRow: {
+    paddingTop: 20,
+    paddingBottom: 40,
+    flexDirection: "row",
+    //alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  scoreText: {
+    width: 40,
+    textAlign: 'center'
   }
 });

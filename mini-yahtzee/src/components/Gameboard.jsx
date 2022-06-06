@@ -5,6 +5,7 @@ import DiceRow from "./DiceRow";
 import ScoreRow from "./ScoreRow";
 
 let board = [];
+let bonusWon = false;
 const NBR_OF_DICES = 5;
 const NBR_OF_SIDES = 6;
 const NBR_OF_THROWS = 3;
@@ -36,7 +37,20 @@ function Gameboard() {
   useEffect(() => {
     checkGameEnd();
   }, [selectedScores])
+
+  useEffect(() => {
+    if (!bonusWon) checkBonus();
+  }, [totalScore])
   
+  const checkBonus = () => {
+    if (totalScore >= BONUS_SCORE_TRESHOLD) {
+      setTotalScore(totalScore + BONUS_SCORE)
+      setBonusText("You got the bonus score!")
+      bonusWon = true;
+    } else {
+      setBonusText("Get " + (BONUS_SCORE_TRESHOLD-totalScore) + " points for bonus")
+    }
+  }
   
   const throwDices = () => {
     if (nbrOfThrowsLeft > 0) {
@@ -49,6 +63,7 @@ function Gameboard() {
 
       setNbrOfThrowsLeft(nbrOfThrowsLeft-1)
     } else if (roundOver) {
+      board = [];
       setNbrOfThrowsLeft(NBR_OF_THROWS)
     }
   }
@@ -72,23 +87,33 @@ function Gameboard() {
     }
   }
 
-  const checkBonus = () => {
-    if (total > BONUS_SCORE_TRESHOLD) {
-      setTotalScore(totalScore + BONUS_SCORE);
-      
-    }
+  const newGame = () => {
+    board = [];
+    bonusWon = false;
+
+    setSelectedDices(new Array(NBR_OF_DICES).fill(false))
+    setSelectedScores(new Array(NBR_OF_SIDES).fill(false))
+    setScores(new Array(NBR_OF_SIDES).fill(0))
+    setNbrOfThrowsLeft(NBR_OF_THROWS);
+    setTotalScore(0);
+    setGameEnded(false);
   }
 
   return (
     <View style={styles.gameboard}>
       <View style={styles.flex}>
-        <DiceRow board={board} NBR_OF_DICES={NBR_OF_DICES} selectedDices={selectedDices} setSelectedDices={setSelectedDices} getColor={getColor}/>
+        <DiceRow board={board} NBR_OF_DICES={NBR_OF_DICES} selectedDices={selectedDices} setSelectedDices={setSelectedDices} getColor={getColor} gameEnded={gameEnded} roundOver={roundOver} />
       </View>
       <Text style={styles.gameinfo}>Throws left: {nbrOfThrowsLeft}</Text>
       <Text style={styles.gameinfo}>{status}</Text>
-      <Pressable style={styles.button} onPress={() => throwDices()}>
-        <Text style={styles.buttonText}>Throw dices</Text>
-      </Pressable>
+      {!gameEnded
+        ? <Pressable style={styles.button} onPress={() => throwDices()}>
+            <Text style={styles.buttonText}>Throw dices</Text>
+          </Pressable>
+        : <Pressable style={styles.button} onPress={() => newGame()}>
+            <Text style={styles.buttonText}>New game</Text>
+          </Pressable>
+      }
       <Text style={styles.gameinfo}>Total score: {totalScore}</Text>
       <Text style={styles.gameinfo}>{bonusText}</Text>
       <ScoreRow checkGameEnd={checkGameEnd} board={board} selectedScores={selectedScores} scores={scores} NBR_OF_SIDES={NBR_OF_SIDES} NBR_OF_DICES={NBR_OF_DICES} setSelectedScores={setSelectedScores} selectedDices={selectedDices} getColor={getColor} nbrOfThrowsLeft={nbrOfThrowsLeft} setStatus={setStatus} setTotalScore={setTotalScore} totalScore={totalScore} setScores={setScores} setSelectedDices={setSelectedDices} roundOver={roundOver} setRoundOver={setRoundOver} />
