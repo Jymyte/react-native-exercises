@@ -84,5 +84,8 @@ export default StyleSheet.create({
   scoreText: {
     width: 40,
     textAlign: 'center'
+  },
+  totalScore: {
+    
   }
 });

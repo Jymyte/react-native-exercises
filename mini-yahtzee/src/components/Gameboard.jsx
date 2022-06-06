@@ -99,10 +99,71 @@ function Gameboard() {
     setGameEnded(false);
   }
 
+  const selectScore = (number, score) => {
+    console.log(score);
+    let selected = [...selectedScores];
+    selected[number - 1] = true;
+    setSelectedScores(selected);
+
+    let scoresTemp = [...scores];
+    scoresTemp[number - 1] = score;
+    setScores(scoresTemp);
+  }
+
+  //Score row related functions
+
+  const countScore = (diceNumber) => {
+    // If round is over skip over this function. Round is over once player has chosen a score succesfully.
+    if (!roundOver) {
+      if (nbrOfThrowsLeft > 0) {
+        setStatus('Throw 3 times before setting points');
+      } else if (selectedScores[diceNumber-1]){
+        setStatus("You have already selected that score")
+      } else {
+        setRoundOver(true);
+  
+        console.log("roundOver", roundOver);
+        
+        let currentDiceScores = board.map((i) => {
+          return parseInt(i.match(/\d+/)[0])
+        })
+        
+        const sum = currentDiceScores.reduce((previousSum, i) => {
+          if (i === diceNumber) {
+            console.log(i, "reducessa");
+            return previousSum + i;
+          } else return previousSum;
+        },0)
+  
+        console.log(sum, "tää on se summa");
+        
+        //initializing next round
+        setTotalScore(totalScore + sum);
+        setStatus('Throw to start the next round');
+        setSelectedDices(new Array(NBR_OF_DICES).fill(false));
+        selectScore(diceNumber, sum);
+        checkGameEnd();
+      }
+    } else {
+      console.log("Skipped");
+    }
+  }
+
+  //Dice row related functions
+
+  const selectDice = (number) => {
+    console.log("game ended and round over: ", gameEnded, roundOver)
+    if (!gameEnded && !roundOver) {
+      let dices = [...selectedDices];
+      dices[number] = selectedDices[number] ? false : true;
+      setSelectedDices(dices);
+    }
+  }
+
   return (
     <View style={styles.gameboard}>
       <View style={styles.flex}>
-        <DiceRow board={board} NBR_OF_DICES={NBR_OF_DICES} selectedDices={selectedDices} setSelectedDices={setSelectedDices} getColor={getColor} gameEnded={gameEnded} roundOver={roundOver} />
+        <DiceRow board={board} NBR_OF_DICES={NBR_OF_DICES} selectedDices={selectedDices} getColor={getColor} selectDice={selectDice} />
       </View>
       <Text style={styles.gameinfo}>Throws left: {nbrOfThrowsLeft}</Text>
       <Text style={styles.gameinfo}>{status}</Text>
@@ -115,8 +176,8 @@ function Gameboard() {
           </Pressable>
       }
       <Text style={styles.gameinfo}>Total score: {totalScore}</Text>
-      <Text style={styles.gameinfo}>{bonusText}</Text>
-      <ScoreRow checkGameEnd={checkGameEnd} board={board} selectedScores={selectedScores} scores={scores} NBR_OF_SIDES={NBR_OF_SIDES} NBR_OF_DICES={NBR_OF_DICES} setSelectedScores={setSelectedScores} selectedDices={selectedDices} getColor={getColor} nbrOfThrowsLeft={nbrOfThrowsLeft} setStatus={setStatus} setTotalScore={setTotalScore} totalScore={totalScore} setScores={setScores} setSelectedDices={setSelectedDices} roundOver={roundOver} setRoundOver={setRoundOver} />
+      <Text>{bonusText}</Text>
+      <ScoreRow selectedScores={selectedScores} scores={scores} NBR_OF_SIDES={NBR_OF_SIDES} getColor={getColor} countScore={countScore} />
     </View>
   )
 }
