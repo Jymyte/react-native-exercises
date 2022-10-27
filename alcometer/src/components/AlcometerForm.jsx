@@ -1,5 +1,5 @@
-import { Text, Button, TextInput, StyleSheet, ScrollView, SafeAreaView } from 'react-native'
-import React, { Component, useState } from 'react'
+import { Text, Button, TextInput, StyleSheet, SafeAreaView, ScrollView } from 'react-native'
+import React, { useState } from 'react'
 import {Picker} from '@react-native-picker/picker'
 import RadioGroup from 'react-native-radio-buttons-group';
 //import theme from '../Theme';
@@ -60,13 +60,14 @@ export default AlcometerForm = () => {
     }
 
     return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView style={styles.scrollView}>
+        <ScrollView style={styles.container}>
           <Text>AlcometerForm</Text>
           <Text>Weight</Text>
           <TextInput style={styles.inputField} onChangeText={text => setWeight(text)} keyboardType='decimal-pad'/>
+
           {showError ? <Text style={styles.errorMessage}>Weight is required</Text> : null}
-          <Text style ={styles.field}>Cans</Text>
+          
+          <Text style={styles.field}>Cans</Text>
           <Picker style={styles.inputField} selectedValue={cans} onValueChange={(itemValue, itemIndex) => setCans(itemValue)}>
             {amounts}
           </Picker>
@@ -80,7 +81,6 @@ export default AlcometerForm = () => {
           <Text style={styles.field}>{result.toFixed(2)}</Text>
           <Button onPress={HandleSubmit} title="Calculate" />
         </ScrollView>
-      </SafeAreaView>
     )
 }
 
