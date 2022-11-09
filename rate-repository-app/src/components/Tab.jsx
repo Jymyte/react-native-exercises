@@ -1,21 +1,16 @@
-import { Text, View, Pressable, StyleSheet } from 'react-native'
+import { View, Pressable } from 'react-native'
 import React from 'react'
+import Text from './Text';
 
 
 const Tab = ({name}) => {
   return (
     <View>
       <Pressable>
-        <Text style={styles.text}>{name}</Text>
+        <Text fontSize="subheading" fontWeight="bold">{name}</Text>
       </Pressable>
     </View>
   )
 }
 
 export default Tab
-
-const styles = StyleSheet.create({
-  text: {
-      fontWeight: "bold",
-  }
-})

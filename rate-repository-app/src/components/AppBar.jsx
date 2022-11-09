@@ -1,8 +1,7 @@
 import { StyleSheet, View} from 'react-native'
-import Constants from 'expo-constants';
+//import Constants from 'expo-constants';
 import Tab from "./Tab";
-
-console.log("tässäpä constantit: ", Constants.statusBarHeight, " ja tyyppi: ", typeof Constants.statusBarHeight);
+import theme from '../theme';
 
 export default function AppBar() {
   return (
@@ -14,7 +13,8 @@ export default function AppBar() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight,
-    backgroundColor: "#23B8BF",
+    //paddingTop: Constants.statusBarHeight,
+    paddingTop: 75,
+    backgroundColor: theme.colors.appBar,
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
+import { StyleSheet, View, FlatList } from 'react-native'
 import RepositoryItem from './RepositoryItem';
 import React from 'react'
 
@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
+  flexContainer: {
+    
+  }
 })
 
 const repositories = [
@@ -59,15 +62,11 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 export default function RepositoryList() {
   const renderItem = ({item}) => {
-    console.log("tässä item fullName", item.fullName);
     return <RepositoryItem item={item} />
-    //Mites niitä propseja ny laitettiinkaa menemää
-    //Also mitä vittua ton debuggerin kanssa
-  } 
+  }
 
   return (
-    <View>
-      <Text>RepositoryList</Text>
+    <View style={styles.container}>
       <FlatList
         data={repositories}
         ItemSeparatorComponent={ItemSeparator}
@@ -78,4 +77,3 @@ export default function RepositoryList() {
     </View>
   )
 }
-

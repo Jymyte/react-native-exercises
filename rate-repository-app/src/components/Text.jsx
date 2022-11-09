@@ -2,13 +2,14 @@ import { StyleSheet, Text as NativeText } from 'react-native'
 import React from 'react'
 import theme from '../theme'
 
-export default function Text({ color, fontSize, fontWeight, style, ...props }) {
+export default function Text({ color, fontSize, fontWeight, backgroundColor, style, ...props }) {
   const textStyle = [
     styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,
     color === 'primary' && styles.colorPrimary,
     fontSize === 'subheading' && styles.fontSizeSubheading,
     fontWeight === 'bold' && styles.fontWeightBold,
+    backgroundColor === 'primary' && styles.backGroundColorPrimary,
     style,
   ];
 
@@ -27,6 +28,9 @@ const styles = StyleSheet.create({
   },
   colorPrimary: {
     color: theme.colors.primary,
+  },
+  backGroundColorPrimary: {
+    backgroundColor: theme.colors.primary,
   },
   fontSizeSubheading: {
     fontSize: theme.fontSizes.subheading,

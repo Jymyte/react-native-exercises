@@ -1,10 +1,10 @@
 import RepositoryList from './RepositoryList';
 import {StyleSheet, View} from 'react-native';
-import Text from './Text';
 import AppBar from './AppBar';
 
 const styles = StyleSheet.create({
-  container: {
+  flexContainer: {
+    display: 'flex',
     flexGrow: 1,
     flexShrink: 1,
   },
@@ -12,9 +12,8 @@ const styles = StyleSheet.create({
 
 const Main = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.flexContainer}>
       <AppBar></AppBar>
-      <Text fontWeight={"bold"} fontSize="subheading">Rate Repository Application</Text>
       <RepositoryList />
     </View>
   );
