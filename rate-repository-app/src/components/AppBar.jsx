@@ -1,5 +1,5 @@
 import { StyleSheet, View} from 'react-native'
-//import Constants from 'expo-constants';
+import Constants from 'expo-constants';
 import Tab from "./Tab";
 import theme from '../theme';
 
@@ -13,8 +13,8 @@ export default function AppBar() {
 
 const styles = StyleSheet.create({
   container: {
-    //paddingTop: Constants.statusBarHeight,
-    paddingTop: 75,
+    paddingTop: Constants.statusBarHeight,
+    padding: 10,
     backgroundColor: theme.colors.appBar,
   },
 });

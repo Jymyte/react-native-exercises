@@ -1,6 +1,7 @@
 import { View, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import Text from './Text'
+import Tag from './Tag'
 
   export default function RepositoryItem(props) {
   const {
@@ -26,7 +27,7 @@ import Text from './Text'
   ) */
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.flexRowContainer}>
         {/* kuva ja tiedot */}
         <Image></Image>
@@ -34,8 +35,7 @@ import Text from './Text'
           <Text fontSize={"subheading"} fontWeight={"bold"}>{fullName}</Text>
           <Text color={"textSecondary"}>{description}</Text>
           {/* Miten saan tähän alignSelf: "flex-start" */}
-          <Text backgroundColor={"primary"}>Makkaraa</Text> 
-          {/* Miten saan tähän alignSelf: "flex-start" */}
+          <Tag text={language}></Tag>
         </View>
       </View>
       <View style={[styles.flexRowContainer, {justifyContent: 'space-evenly'}]}>
@@ -46,8 +46,12 @@ import Text from './Text'
   )
 }
 
-const styles = StyleSheet.create({flexRowContainer: {
-  flexDirection: 'row',
-  justifyContent: 'flex-start',
-
-}})
+const styles = StyleSheet.create({
+  flexRowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  container: {
+    paddingLeft: 25,
+  }
+})
