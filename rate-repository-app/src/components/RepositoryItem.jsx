@@ -11,26 +11,16 @@ import Tag from './Tag'
     forksCount,
     stargazersCount,
     ratingAverage,
-    reViewCount} = props.item
-    
-  /* return (
-    <View>
-      <Text color="textSecondary">Makkara</Text>
-      <Text>{fullName}</Text>
-      <Text>{description}</Text>
-      <Text>{language}</Text>
-      <Text>{forksCount}</Text>
-      <Text>{stargazersCount}</Text>
-      <Text>{ratingAverage}</Text>
-      <Text>{reViewCount}</Text>
-    </View>
-  ) */
+    reviewCount,
+    imageSource,
+    ownerAvatarUrl,
+  } = props.item
 
   return (
     <View style={styles.container}>
       <View style={styles.flexRowContainer}>
         {/* kuva ja tiedot */}
-        <Image></Image>
+        <Image source={{uri: ownerAvatarUrl, width: 60, height: 60}}></Image>
         <View>
           <Text fontSize={"subheading"} fontWeight={"bold"}>{fullName}</Text>
           <Text color={"textSecondary"}>{description}</Text>

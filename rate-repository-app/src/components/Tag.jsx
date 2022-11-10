@@ -6,7 +6,7 @@ import theme from '../theme'
 export default function Tag({text}) {
   return (
     <View style={styles.container}>
-      <Text>{text}</Text>
+      <Text style={{paddingLeft: 5, paddingRight: 5}}>{text}</Text>
     </View>
   )
 }
@@ -15,5 +15,7 @@ const styles = StyleSheet.create({
   container: {
     alignSelf: "flex-start",
     backgroundColor: theme.colors.primary,
+    borderRadius: 5,
+    padding: 5,
   },
 })
