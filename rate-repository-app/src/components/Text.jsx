@@ -2,7 +2,7 @@ import { StyleSheet, Text as NativeText } from 'react-native'
 import React from 'react'
 import theme from '../theme'
 
-export default function Text({ color, fontSize, fontWeight, backgroundColor, style, ...props }) {
+export default function Text({ color, fontSize, fontWeight, backgroundColor, textAlign, style, ...props }) {
   const textStyle = [
     styles.text,
     color === 'textSecondary' && styles.colorTextSecondary,
@@ -10,6 +10,7 @@ export default function Text({ color, fontSize, fontWeight, backgroundColor, sty
     fontSize === 'subheading' && styles.fontSizeSubheading,
     fontWeight === 'bold' && styles.fontWeightBold,
     backgroundColor === 'primary' && styles.backGroundColorPrimary,
+    textAlign ==='center' && styles.centered,
     style,
   ];
 
@@ -29,6 +30,9 @@ const styles = StyleSheet.create({
   colorPrimary: {
     color: theme.colors.primary,
   },
+  colorSecondary: {
+    color: theme.colors.secondary,
+  },
   backGroundColorPrimary: {
     backgroundColor: theme.colors.primary,
   },
@@ -38,5 +42,8 @@ const styles = StyleSheet.create({
   fontWeightBold: {
     fontWeight: theme.fontWeights.bold,
   },
+  centere: {
+    textAlign: 'center'
+  }
 })
 

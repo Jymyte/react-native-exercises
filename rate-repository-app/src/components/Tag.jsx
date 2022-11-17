@@ -14,7 +14,7 @@ export default function Tag({text}) {
 const styles = StyleSheet.create({
   container: {
     alignSelf: "flex-start",
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.secondary,
     borderRadius: 5,
     padding: 5,
   },

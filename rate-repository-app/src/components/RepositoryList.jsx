@@ -13,7 +13,6 @@ const repositories = [
     stargazersCount: 21553,
     ratingAverage: 88,
     reviewCount: 4,
-    imageSource: require('../../assets/logos/TypeScript.png'),
     ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/4060187?v=4',
   },
   {
@@ -25,7 +24,6 @@ const repositories = [
     stargazersCount: 45377,
     ratingAverage: 100,
     reviewCount: 2,
-    imageSource: require('../../assets/logos/Ruby.png'),
     ownerAvatarUrl: 'https://avatars1.githubusercontent.com/u/4223?v=4',
   },
   {
@@ -37,7 +35,6 @@ const repositories = [
     stargazersCount: 48496,
     ratingAverage: 73,
     reviewCount: 5,
-    imageSource: require('../../assets/logos/Python.png'),
     ownerAvatarUrl: 'https://avatars2.githubusercontent.com/u/27804?v=4',
   },
   {
@@ -49,7 +46,6 @@ const repositories = [
     stargazersCount: 52869,
     ratingAverage: 0,
     reviewCount: 0,
-    imageSource: require('../../assets/logos/TypeScript.png'),
     ownerAvatarUrl: 'https://avatars3.githubusercontent.com/u/13142323?v=4',
   },
 ];
@@ -68,7 +64,6 @@ export default function RepositoryList() {
         ItemSeparatorComponent={ItemSeparator}
         renderItem={renderItem}
         key={item => item.id}
-
       />
     </View>
   )
