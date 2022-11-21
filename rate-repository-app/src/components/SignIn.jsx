@@ -1,14 +1,27 @@
-import { StyleSheet } from 'react-native'
 import React from 'react'
-import Text from './Text'
+import { Formik } from 'formik'
+
+import SignInForm from './SignInForm'
+
+const initialValues = {
+  userName: '',
+  password: '',
+};
 
 const SignIn = () => {
+
+  const onSubmit = (values) => {
+    console.log(values);
+  };
+
   return (
-      <Text>SignIn</Text>
+    <>
+      <Formik initialValues={initialValues} onSubmit={onSubmit}>
+        {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+      </Formik>
+    </>
 
   )
 }
 
 export default SignIn
-
-const styles = StyleSheet.create({})
