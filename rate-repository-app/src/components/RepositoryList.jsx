@@ -53,7 +53,7 @@ const repositories = [
 const ItemSeparator = () => <View style={styles.separator} />;
 
 export default function RepositoryList() {
-  const renderItem = ({item}) => {
+  const RenderItem = ({item}) => {
     return <RepositoryItem item={item} />
   }
 
@@ -62,7 +62,7 @@ export default function RepositoryList() {
       <FlatList
         data={repositories}
         ItemSeparatorComponent={ItemSeparator}
-        renderItem={renderItem}
+        renderItem={RenderItem}
         key={item => item.id}
       />
     </View>
